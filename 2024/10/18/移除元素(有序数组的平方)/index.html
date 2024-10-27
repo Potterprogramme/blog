@@ -2,15 +2,16 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS_HTML" async></script>
+
   
-  
-  <meta name="description" content="移除元素(有序数组的平方)题目
+  <meta name="description" content="有序数组的平方题目
 
 
 理解用双指针，为什么要用双指针？怎么想到要用双指针？
 分析题目，数据是开头大，结尾大，中间小，总体成两边高中间矮的情形，就应该想到比较首尾，就应该联想到双指针。
 如果i比j大，放入i，然后i++，如果j比i大，放如j，然后j–。
-解答123456789101112" />
+解答123456789101112131415" />
   
 
   
@@ -19,18 +20,18 @@
   
   
   
-  <title>移除元素leetcode977(有序数组的平方) | 巫师实习员</title>
+  <title>有序数组的平方leetcode977(双指针经典) | 巫师实习员</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="移除元素(有序数组的平方)题目   理解用双指针，为什么要用双指针？怎么想到要用双指针？ 分析题目，数据是开头大，结尾大，中间小，总体成两边高中间矮的情形，就应该想到比较首尾，就应该联想到双指针。 如果i比j大，放入i，然后i++，如果j比i大，放如j，然后j–。 解答123456789101112131415161718&#x2F;** * .Note: The returned array must b">
+  <meta name="description" content="有序数组的平方题目   理解用双指针，为什么要用双指针？怎么想到要用双指针？ 分析题目，数据是开头大，结尾大，中间小，总体成两边高中间矮的情形，就应该想到比较首尾，就应该联想到双指针。 如果i比j大，放入i，然后i++，如果j比i大，放如j，然后j–。 解答123456789101112131415161718&#x2F;** * .Note: The returned array must be mall">
 <meta property="og:type" content="article">
-<meta property="og:title" content="移除元素leetcode977(有序数组的平方)">
+<meta property="og:title" content="有序数组的平方leetcode977(双指针经典)">
 <meta property="og:url" content="http://example.com/2024/10/18/%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0(%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E5%B9%B3%E6%96%B9)/index.html">
 <meta property="og:site_name" content="巫师实习员">
-<meta property="og:description" content="移除元素(有序数组的平方)题目   理解用双指针，为什么要用双指针？怎么想到要用双指针？ 分析题目，数据是开头大，结尾大，中间小，总体成两边高中间矮的情形，就应该想到比较首尾，就应该联想到双指针。 如果i比j大，放入i，然后i++，如果j比i大，放如j，然后j–。 解答123456789101112131415161718&#x2F;** * .Note: The returned array must b">
+<meta property="og:description" content="有序数组的平方题目   理解用双指针，为什么要用双指针？怎么想到要用双指针？ 分析题目，数据是开头大，结尾大，中间小，总体成两边高中间矮的情形，就应该想到比较首尾，就应该联想到双指针。 如果i比j大，放入i，然后i++，如果j比i大，放如j，然后j–。 解答123456789101112131415161718&#x2F;** * .Note: The returned array must be mall">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/images/leetcode977.png">
 <meta property="article:published_time" content="2024-10-18T14:07:00.000Z">
-<meta property="article:modified_time" content="2024-10-18T14:15:01.537Z">
+<meta property="article:modified_time" content="2024-10-20T07:33:04.685Z">
 <meta property="article:author" content="potter_program">
 <meta property="article:tag" content="数组">
 <meta property="article:tag" content="算法">
@@ -89,7 +90,7 @@
         
   
     <h1 class="entry-title article-title">
-      移除元素leetcode977(有序数组的平方)
+      有序数组的平方leetcode977(双指针经典)
     </h1>
   
 
@@ -102,7 +103,7 @@
 
     <div class="entry-content">
       
-        <h4 id="移除元素-有序数组的平方"><a href="#移除元素-有序数组的平方" class="headerlink" title="移除元素(有序数组的平方)"></a>移除元素(有序数组的平方)</h4><h5 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h5><img src="\images\leetcode977.png" alt="24" align="left"/>
+        <h4 id="有序数组的平方"><a href="#有序数组的平方" class="headerlink" title="有序数组的平方"></a>有序数组的平方</h4><h5 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h5><img src="\images\leetcode977.png" alt="24" align="left"/>
 
 
 <h5 id="理解"><a href="#理解" class="headerlink" title="理解"></a>理解</h5><p>用双指针，为什么要用双指针？怎么想到要用双指针？</p>
@@ -132,6 +133,8 @@
     
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2024/10/28/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/" rel="prev"><span class="meta-nav">←</span> 机器学习之线性回归基础</a></span>
     
     
         <span class="nav-next"><a href="/2024/10/14/%E4%B8%80%E4%BA%9B%E7%A2%8E%E7%AC%94/" rel="next">碎笔(2024.10.14) <span class="meta-nav">→</span></a></span>
@@ -175,7 +178,11 @@
       <ul>
         
           <li>
-            <a href="/2024/10/18/%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0(%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E5%B9%B3%E6%96%B9)/">移除元素leetcode977(有序数组的平方)</a>
+            <a href="/2024/10/28/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/">机器学习之线性回归基础</a>
+          </li>
+        
+          <li>
+            <a href="/2024/10/18/%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0(%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E5%B9%B3%E6%96%B9)/">有序数组的平方leetcode977(双指针经典)</a>
           </li>
         
           <li>
@@ -190,10 +197,6 @@
             <a href="/2024/09/25/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE(%E5%9F%BA%E7%A1%80)/">二分查找leetcode704(基础)</a>
           </li>
         
-          <li>
-            <a href="/2024/09/25/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE(%E6%9C%89%E6%95%88%E7%9A%84%E5%AE%8C%E5%85%A8%E5%B9%B3%E6%96%B9%E6%95%B0)/">二分查找leetcode367(有效的完全平方数)</a>
-          </li>
-        
       </ul>
     </div>
   </aside>
@@ -203,7 +206,7 @@
   <aside class="widget">
     <h3 class="widget-title">Tags</h3>
     <div class="widget-content">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">二分查找</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/" rel="tag">双指针</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%AB%E6%85%A2%E6%8C%87%E9%92%88/" rel="tag">快慢指针</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A2%8E%E7%AC%94/" rel="tag">碎笔</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0/" rel="tag">移除元素</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">10</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">二分查找</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/" rel="tag">双指针</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%AB%E6%85%A2%E6%8C%87%E9%92%88/" rel="tag">快慢指针</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/" rel="tag">最小二乘法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D/" rel="tag">梯度下降</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A2%8E%E7%AC%94/" rel="tag">碎笔</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0/" rel="tag">移除元素</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/" rel="tag">线性回归</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </aside>
 
@@ -212,7 +215,7 @@
   <aside class="widget">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget-content tagcloud">
-      <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 16.67px;">二分查找</a> <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/" style="font-size: 10px;">双指针</a> <a href="/tags/%E5%BF%AB%E6%85%A2%E6%8C%87%E9%92%88/" style="font-size: 13.33px;">快慢指针</a> <a href="/tags/%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">排序</a> <a href="/tags/%E6%95%B0%E7%BB%84/" style="font-size: 20px;">数组</a> <a href="/tags/%E7%A2%8E%E7%AC%94/" style="font-size: 10px;">碎笔</a> <a href="/tags/%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0/" style="font-size: 16.67px;">移除元素</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 20px;">算法</a>
+      <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 15px;">二分查找</a> <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/" style="font-size: 10px;">双指针</a> <a href="/tags/%E5%BF%AB%E6%85%A2%E6%8C%87%E9%92%88/" style="font-size: 12.5px;">快慢指针</a> <a href="/tags/%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">排序</a> <a href="/tags/%E6%95%B0%E7%BB%84/" style="font-size: 17.5px;">数组</a> <a href="/tags/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/" style="font-size: 10px;">最小二乘法</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">机器学习</a> <a href="/tags/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D/" style="font-size: 10px;">梯度下降</a> <a href="/tags/%E7%A2%8E%E7%AC%94/" style="font-size: 10px;">碎笔</a> <a href="/tags/%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0/" style="font-size: 15px;">移除元素</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 20px;">算法</a> <a href="/tags/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/" style="font-size: 10px;">线性回归</a>
     </div>
   </aside>
 
