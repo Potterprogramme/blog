@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS_HTML" async></script>
+
+  
+  <meta name="description" content="逻辑回归什么是逻辑回归？
+逻辑回归是根据给定的数据集估算时间发生的概率，是一种分类
+
+
+明明是分类为什么称作回归呢？因为它的底层方法就是线性回归，逻辑回归是基于回归的伪回归算法。
+
+实现基础的逻辑回归理解逻辑回归逻辑函数的表达回想线性方程$$Z &amp;#x3D; W^TX + b$$对于直线，我们知道z" />
+  
+
+  
+  
+  
+  
+  
+  
+  <title>机器学习之逻辑回归基础 | 巫师实习员</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="逻辑回归什么是逻辑回归？ 逻辑回归是根据给定的数据集估算时间发生的概率，是一种分类   明明是分类为什么称作回归呢？因为它的底层方法就是线性回归，逻辑回归是基于回归的伪回归算法。  实现基础的逻辑回归理解逻辑回归逻辑函数的表达回想线性方程$$Z &#x3D; W^TX + b$$对于直线，我们知道z的输出范围没有任何的限制，可以从负无穷到正无穷。但是，我们需要的是一个分类器，想要拿到两种结果，0或">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习之逻辑回归基础">
+<meta property="og:url" content="http://example.com/2024/10/28/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/index.html">
+<meta property="og:site_name" content="巫师实习员">
+<meta property="og:description" content="逻辑回归什么是逻辑回归？ 逻辑回归是根据给定的数据集估算时间发生的概率，是一种分类   明明是分类为什么称作回归呢？因为它的底层方法就是线性回归，逻辑回归是基于回归的伪回归算法。  实现基础的逻辑回归理解逻辑回归逻辑函数的表达回想线性方程$$Z &#x3D; W^TX + b$$对于直线，我们知道z的输出范围没有任何的限制，可以从负无穷到正无穷。但是，我们需要的是一个分类器，想要拿到两种结果，0或">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/Pasted%20image%2020241028182720.png">
+<meta property="og:image" content="http://example.com/images/Pasted%20image%2020241028190843.png">
+<meta property="og:image" content="http://example.com/images/Pasted%20image%2020241028200239.png">
+<meta property="og:image" content="http://example.com/images/Pasted%20image%2020241028183305.png">
+<meta property="og:image" content="http://example.com/images/Pasted%20image%2020241028183938.png">
+<meta property="og:image" content="http://example.com/images/Pasted%20image%2020241028191058.png">
+<meta property="og:image" content="http://example.com/images/Pasted%20image%2020241028202156.png">
+<meta property="og:image" content="http://example.com/images/Pasted%20image%2020241028185200.png">
+<meta property="og:image" content="http://example.com/images/Pasted%20image%2020241028184731.png">
+<meta property="og:image" content="http://example.com/images/Pasted%20image%2020241028185001.png">
+<meta property="og:image" content="http://example.com/images/Pasted%20image%2020241028191229.png">
+<meta property="og:image" content="http://example.com/images/Pasted%20image%2020241028192104.png">
+<meta property="og:image" content="http://example.com/images/Pasted%20image%2020241028192602.png">
+<meta property="article:published_time" content="2024-10-28T12:35:00.000Z">
+<meta property="article:modified_time" content="2024-10-28T12:45:11.625Z">
+<meta property="article:author" content="potter_program">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="机器学习">
+<meta property="article:tag" content="逻辑回归">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/Pasted%20image%2020241028182720.png">
+  
+  
+    <link rel="icon" href="favicon.webp">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src='//push.zhanzhang.baidu.com/push.js'></script>
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="巫师实习员" rel="home">巫师实习员</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-机器学习之逻辑回归" class="post-机器学习之逻辑回归 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      机器学习之逻辑回归基础
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://example.com/2024/10/28/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/" data-id="cm2t0hj5d00004sww1ulbd0bl" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h1 id="逻辑回归"><a href="#逻辑回归" class="headerlink" title="逻辑回归"></a>逻辑回归</h1><h2 id="什么是逻辑回归？"><a href="#什么是逻辑回归？" class="headerlink" title="什么是逻辑回归？"></a>什么是逻辑回归？</h2><blockquote>
+<p>逻辑回归是根据给定的数据集估算时间发生的概率，是一种分类</p>
+</blockquote>
+<blockquote>
+<p>明明是分类为什么称作回归呢？<br>因为它的底层方法就是线性回归，逻辑回归是基于回归的伪回归算法。</p>
+</blockquote>
+<h2 id="实现基础的逻辑回归"><a href="#实现基础的逻辑回归" class="headerlink" title="实现基础的逻辑回归"></a>实现基础的逻辑回归</h2><h3 id="理解逻辑回归"><a href="#理解逻辑回归" class="headerlink" title="理解逻辑回归"></a>理解逻辑回归</h3><h4 id="逻辑函数的表达"><a href="#逻辑函数的表达" class="headerlink" title="逻辑函数的表达"></a>逻辑函数的表达</h4><p>回想线性方程<br>$$Z &#x3D; W^TX + b$$<br>对于直线，我们知道z的输出范围没有任何的限制，可以从负无穷到正无穷。但是，我们需要的是一个分类器，想要拿到两种结果，0或者1，所以我们需要输出范围为（0,1）的式子。<br>在线性方程的基础上达到规范输出范围这一目的，我们使用了Sigmoid函数$$σ(z) &#x3D; \frac{1}{1+e^{-z}}$$![[Pasted image 20241028195414.png]]<br>图像很像s，就跟sigmoid沾上边了，所以拿到一个逻辑函数的名称。</p>
+<p>我们在z的基础上进行的操作来达到控制范围的效果，我们就将z代入，就像下面这样。<br><img src="/images/Pasted image 20241028182720.png" style="zoom:200%;"/><br><img src="/images/Pasted image 20241028190843.png" style="zoom:200%;"/><br>我们要明确最初的目标，是分类，只有两种结果，要么0要么1，那哪些判断为0哪些判断为1呢？<br>我们引入决策边界。边界内为一种情况，边界外为一种情况。<br>不难想到会有线性边界以及非线性边界<br>情况类似下图<br><img src="/images/Pasted image 20241028200239.png" style="zoom:200%;"/><br><img src="/images/Pasted image 20241028183305.png" style="zoom:200%;"/></p>
+<blockquote>
+<p>所以，逻辑回归的整体思路是，先用逻辑函数把线性回归的结果 (-∞,∞)映射到(0,1)，再通过决策边界建立与分类的概率联系</p>
+</blockquote>
+<p>在二分类模型中，事件发生于不发生的概率之比$$\frac{p}{1-p}$$称作事件的几率。<br>几率的范围也是(0,1)，那我们就令<br>$$z &#x3D; log(\frac{p}{1-p})$$<br>也就是说，线性回归的结果等于对数几率。</p>
+<h4 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h4><p>自然，向线性回归一样，逻辑回归也需要我们判断拟合好与不好。</p>
+<p>线性回归分析梯度下降时，我们就提出了，条条大路不一定都能通罗马，恰好线性回归的损失函数是一个碗罢了，只有一个最小。<br>那逻辑回归还会这么幸运吗？<br>并不是，逻辑函数的平方损失函数布满了局部最小值。<br><img src="/images/Pasted image 20241028183938.png" style="zoom:200%;"/><br><img src="/images/Pasted image 20241028191058.png" style="zoom:200%;"/><br>这样一来，梯度下降难以实行啊。为了解决这个问题，我们得让它也像碗一样听话。</p>
+<p>痛苦的根源是什么？有个e啊！还在分母上，怎么导也动不了啊！联想一下高考导数题，不难想到取对数。试一试，取对数情况很不错。</p>
+<p>y要么为0要么为1，看一看对数的图像<br><img src="/images/Pasted image 20241028202156.png" style="zoom:200%;"/><br>如果是一根线，那么不管怎么个情况，0和1对应取到的值都是天壤之别。</p>
+<p>一根不能满足，两根就可以。一正一负，很合适。看看下面三张图：<br><img src="/images/Pasted image 20241028185200.png" style="zoom:200%;"/><br><img src="/images/Pasted image 20241028184731.png" style="zoom:200%;"/><br><img src="/images/Pasted image 20241028185001.png" style="zoom:200%;"/></p>
+<p>取对数，图形就变得很乖了，看不出坑坑洼洼。<br><img src="/images/Pasted image 20241028191229.png" style="zoom:200%;"/><br>这下就适合梯度下降了。</p>
+<p>化简一下：<br><img src="/images/Pasted image 20241028192104.png" style="zoom:200%;"/></p>
+<p>接下来就是线性回归一样的梯度下降处理了<br><img src="/images/Pasted image 20241028192602.png" style="zoom:200%;"/></p>
+<p>不难看出，求的偏导跟线性回归好像一样。<br>但是区别就在于f的表达式。</p>
+<p>剩下的处理跟线性回归也就大差不差了。详情可见<a href="https://sorcerer.zeabur.app/2024/10/28/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/" target="_blank">机器学习之逻辑回归基础</a></p>
+<p><br><br><br><br><br>写在最后，感谢这些文章和视屏的指点：<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/7057447537757650957">https://juejin.cn/post/7057447537757650957</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_48524215/article/details/131350759">https://blog.csdn.net/weixin_48524215/article/details/131350759</a><br><a target="_blank" rel="noopener" href="https://github.com/kaieye/2022-Machine-Learning-Specialization/blob/main/Supervised%20Machine%20Learning%20Regression%20and%20Classification/week3/3.Cost%20function%20for%20logistic%20regression/C1_W3_Lab04_LogisticLoss_Soln.ipynb">https://github.com/kaieye/2022-Machine-Learning-Specialization/blob/main/Supervised%20Machine%20Learning%20Regression%20and%20Classification/week3/3.Cost%20function%20for%20logistic%20regression/C1_W3_Lab04_LogisticLoss_Soln.ipynb</a><br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1PN4y1V7d9/?p=3&">https://www.bilibili.com/video/BV1PN4y1V7d9/?p=3&amp;</a></p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2024/10/28/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/">
+    <time datetime="2024-10-28T12:35:00.000Z" class="entry-date">
+        2024-10-28
+    </time>
+</a>
+    
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/" rel="tag">逻辑回归</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+    
+        <span class="nav-next"><a href="/2024/10/28/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/" rel="next">机器学习之线性回归基础 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <!-- <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value="" name="s" id="s" />
+        <input type="submit" id="searchsubmit" value="搜索" />
+    </div>
+</form></aside> -->
+<aside id="search" class="widget widget_search">
+    <form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="/search.html">
+        <div>
+            <input type="text" value="" name="q" id="s" required placeholder="搜索文章" />
+            <input type="submit" id="searchsubmit" value="搜索" />
+        </div>
+    </form>
+</aside>
+
+
+  
+    
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2024/10/28/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/">机器学习之逻辑回归基础</a>
+          </li>
+        
+          <li>
+            <a href="/2024/10/28/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/">机器学习之线性回归基础</a>
+          </li>
+        
+          <li>
+            <a href="/2024/10/18/%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0(%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E5%B9%B3%E6%96%B9)/">有序数组的平方leetcode977(双指针经典)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/10/14/%E4%B8%80%E4%BA%9B%E7%A2%8E%E7%AC%94/">碎笔(2024.10.14)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/09/25/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE(x%E7%9A%84%E5%B9%B3%E6%96%B9%E6%A0%B9)/">二分查找leetcode69(x的平方根)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">二分查找</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/" rel="tag">双指针</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%AB%E6%85%A2%E6%8C%87%E9%92%88/" rel="tag">快慢指针</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/" rel="tag">最小二乘法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D/" rel="tag">梯度下降</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A2%8E%E7%AC%94/" rel="tag">碎笔</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0/" rel="tag">移除元素</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/" rel="tag">线性回归</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/" rel="tag">逻辑回归</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 16px;">二分查找</a> <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/" style="font-size: 10px;">双指针</a> <a href="/tags/%E5%BF%AB%E6%85%A2%E6%8C%87%E9%92%88/" style="font-size: 14px;">快慢指针</a> <a href="/tags/%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">排序</a> <a href="/tags/%E6%95%B0%E7%BB%84/" style="font-size: 18px;">数组</a> <a href="/tags/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/" style="font-size: 10px;">最小二乘法</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 12px;">机器学习</a> <a href="/tags/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D/" style="font-size: 10px;">梯度下降</a> <a href="/tags/%E7%A2%8E%E7%AC%94/" style="font-size: 10px;">碎笔</a> <a href="/tags/%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0/" style="font-size: 16px;">移除元素</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 20px;">算法</a> <a href="/tags/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/" style="font-size: 10px;">线性回归</a> <a href="/tags/%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/" style="font-size: 10px;">逻辑回归</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2024 potter_program
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>
