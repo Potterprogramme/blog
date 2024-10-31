@@ -5,16 +5,14 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS_HTML" async></script>
 
   
-  <meta name="description" content="移除元素(基础)适用情况
-数组，移除指定内容的元素
+  <meta name="description" content="滑动窗口(水果成篮)题目
 
-方法
-暴力解法，遍历，找到元素就将后一个内容赋给前一个
+理解
+扩大和缩小
 
-
-快慢指针法，遍历，任何时候都将快指针前移，没有找到元素的时候，快指针内容赋值给慢指针，慢指针前移
-
-​     https://www.bilibili.com/video/BV1ep4" />
+如果满足要求，那就扩大右边界如果不满足要求，就缩小左边界
+怎么判断是否满足要求呢？种类数量，实现方法是用一个数组来存放每种水果放在篮子里的数量
+同样存在while和if的选择，缩小时采用的是while，原因左边可能存在连续的并且内容一致的，要一直缩小到" />
   
 
   
@@ -23,25 +21,24 @@
   
   
   
-  <title>移除元素leetcode27(基础) | 巫师实习员</title>
+  <title>滑动窗口leetcode904(水果成篮) | 巫师实习员</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="移除元素(基础)适用情况 数组，移除指定内容的元素  方法 暴力解法，遍历，找到元素就将后一个内容赋给前一个   快慢指针法，遍历，任何时候都将快指针前移，没有找到元素的时候，快指针内容赋值给慢指针，慢指针前移  ​     https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1ep4y1S7zv?vd_source&#x3D;67ccdc6b6c70370ff009abdf5c7dc2d3">
+  <meta name="description" content="滑动窗口(水果成篮)题目  理解 扩大和缩小  如果满足要求，那就扩大右边界如果不满足要求，就缩小左边界 怎么判断是否满足要求呢？种类数量，实现方法是用一个数组来存放每种水果放在篮子里的数量 同样存在while和if的选择，缩小时采用的是while，原因左边可能存在连续的并且内容一致的，要一直缩小到满足条件。 解答123456789101112131415161718192021222324252">
 <meta property="og:type" content="article">
-<meta property="og:title" content="移除元素leetcode27(基础)">
-<meta property="og:url" content="http://example.com/2024/09/25/%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0(%E5%9F%BA%E7%A1%80)/index.html">
+<meta property="og:title" content="滑动窗口leetcode904(水果成篮)">
+<meta property="og:url" content="http://example.com/2024/10/31/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3(%E6%B0%B4%E6%9E%9C%E6%88%90%E7%AF%AE)/index.html">
 <meta property="og:site_name" content="巫师实习员">
-<meta property="og:description" content="移除元素(基础)适用情况 数组，移除指定内容的元素  方法 暴力解法，遍历，找到元素就将后一个内容赋给前一个   快慢指针法，遍历，任何时候都将快指针前移，没有找到元素的时候，快指针内容赋值给慢指针，慢指针前移  ​     https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1ep4y1S7zv?vd_source&#x3D;67ccdc6b6c70370ff009abdf5c7dc2d3">
+<meta property="og:description" content="滑动窗口(水果成篮)题目  理解 扩大和缩小  如果满足要求，那就扩大右边界如果不满足要求，就缩小左边界 怎么判断是否满足要求呢？种类数量，实现方法是用一个数组来存放每种水果放在篮子里的数量 同样存在while和if的选择，缩小时采用的是while，原因左边可能存在连续的并且内容一致的，要一直缩小到满足条件。 解答123456789101112131415161718192021222324252">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/images/leetcode27.png">
-<meta property="article:published_time" content="2024-09-25T04:00:00.000Z">
-<meta property="article:modified_time" content="2024-09-25T13:56:43.081Z">
+<meta property="og:image" content="http://example.com/images/leetcode904.png">
+<meta property="article:published_time" content="2024-10-31T04:00:00.000Z">
+<meta property="article:modified_time" content="2024-10-31T12:14:02.183Z">
 <meta property="article:author" content="potter_program">
-<meta property="article:tag" content="数组">
 <meta property="article:tag" content="算法">
-<meta property="article:tag" content="移除元素">
-<meta property="article:tag" content="快慢指针">
+<meta property="article:tag" content="滑动窗口">
+<meta property="article:tag" content="leetcode904">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/images/leetcode27.png">
+<meta name="twitter:image" content="http://example.com/images/leetcode904.png">
   
   
     <link rel="icon" href="favicon.webp">
@@ -84,7 +81,7 @@
 </header>
 
       <div id="main" class="wrapper">
-        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-移除元素(基础)" class="post-移除元素(基础) post type-post status-publish format-standard hentry">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-滑动窗口(水果成篮)" class="post-滑动窗口(水果成篮) post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -92,49 +89,41 @@
         
   
     <h1 class="entry-title article-title">
-      移除元素leetcode27(基础)
+      滑动窗口leetcode904(水果成篮)
     </h1>
   
 
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://example.com/2024/09/25/%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0(%E5%9F%BA%E7%A1%80)/" data-id="cm1i2m4jj0009x0ww6pgic9g5" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://example.com/2024/10/31/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3(%E6%B0%B4%E6%9E%9C%E6%88%90%E7%AF%AE)/" data-id="cm2x9nqe80000j4wwedkq3tti" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <h4 id="移除元素-基础"><a href="#移除元素-基础" class="headerlink" title="移除元素(基础)"></a>移除元素(基础)</h4><h5 id="适用情况"><a href="#适用情况" class="headerlink" title="适用情况"></a>适用情况</h5><blockquote>
-<p>数组，移除指定内容的元素</p>
+        <h1 id="滑动窗口-水果成篮"><a href="#滑动窗口-水果成篮" class="headerlink" title="滑动窗口(水果成篮)"></a>滑动窗口(水果成篮)</h1><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><img src="/images/leetcode904.png" alt="26" style="zoom:50%;" align="left"/>
+
+<h2 id="理解"><a href="#理解" class="headerlink" title="理解"></a>理解</h2><blockquote>
+<p>扩大和缩小</p>
 </blockquote>
-<h5 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h5><blockquote>
-<p>暴力解法，遍历，找到元素就将后一个内容赋给前一个</p>
-</blockquote>
-<blockquote>
-<p>快慢指针法，遍历，任何时候都将快指针前移，没有找到元素的时候，快指针内容赋值给慢指针，慢指针前移</p>
-</blockquote>
-<p>​     <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1ep4y1S7zv?vd_source=67ccdc6b6c70370ff009abdf5c7dc2d3">https://www.bilibili.com/video/BV1ep4y1S7zv?vd_source=67ccdc6b6c70370ff009abdf5c7dc2d3</a> ( 1分55 )<br>   【Leetcode 27 移除元素 【快慢指针】】</p>
-<h5 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h5><img src="/images/leetcode27.png" alt="24" align="left"/>
-
-<h5 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h5><h6 id="解法1-暴力"><a href="#解法1-暴力" class="headerlink" title="解法1(暴力)"></a>解法1(暴力)</h6><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">removeElement</span><span class="params">(<span class="type">int</span>* nums, <span class="type">int</span> numsSize, <span class="type">int</span> val)</span> &#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;numsSize;i++)&#123;				<span class="comment">//遍历数组</span></span><br><span class="line">        <span class="keyword">if</span>(nums[i] == val)&#123;						</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=i+<span class="number">1</span>;j&lt;numsSize;j++)&#123;		<span class="comment">//如果找到一样的，那么后面的元素依次往前移动</span></span><br><span class="line">                nums[j<span class="number">-1</span>] = nums[j];</span><br><span class="line">            &#125;</span><br><span class="line">            i--;			<span class="comment">//下标i以后的数值都向前移动了一位，i也要往前移动一位</span></span><br><span class="line">            numsSize--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> numsSize;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h6 id="解法2-快慢指针法"><a href="#解法2-快慢指针法" class="headerlink" title="解法2(快慢指针法)"></a>解法2(快慢指针法)</h6><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">removeElement</span><span class="params">(<span class="type">int</span>* nums, <span class="type">int</span> numsSize, <span class="type">int</span> val)</span> &#123;</span><br><span class="line">   <span class="type">int</span> fast_index = <span class="number">0</span>;</span><br><span class="line">   <span class="type">int</span> slow_index = <span class="number">0</span>;</span><br><span class="line">   <span class="keyword">for</span>(fast_index=<span class="number">0</span>;fast_index&lt;numsSize;fast_index++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums[fast_index] != val)&#123;</span><br><span class="line">            nums[slow_index] = nums[fast_index];</span><br><span class="line">            slow_index++;</span><br><span class="line">        &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> slow_index;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
+<p>如果满足要求，那就扩大右边界<br>如果不满足要求，就缩小左边界</p>
+<p>怎么判断是否满足要求呢？种类数量，实现方法是用一个数组来存放每种水果放在篮子里的数量</p>
+<p>同样存在while和if的选择，缩小时采用的是while，原因左边可能存在连续的并且内容一致的，要一直缩小到满足条件。</p>
+<h2 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">totalFruit</span><span class="params">(<span class="type">int</span>* fruits, <span class="type">int</span> fruitsSize)</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> basket[<span class="number">100001</span>] = &#123;<span class="number">0</span>&#125;; <span class="comment">//记录每种水果的数量</span></span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> left = <span class="number">0</span>, right = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> max_num = <span class="number">0</span>, unique_num = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(right &lt; fruitsSize)&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//如果没有被放入篮子，就将它添加到篮子中</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(basket[fruits[right]] == <span class="number">0</span>) unique_num++;</span><br><span class="line"></span><br><span class="line">        basket[fruits[right]]++;</span><br><span class="line"></span><br><span class="line">        right++;</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">        <span class="comment">//当篮子中水果种类超过2时，移动左边界</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span>(unique_num &gt; <span class="number">2</span>)&#123;</span><br><span class="line"></span><br><span class="line">            basket[fruits[left]]--;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>(basket[fruits[left]] == <span class="number">0</span>) unique_num--;</span><br><span class="line"></span><br><span class="line">            left++;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">        <span class="comment">//更新最大水果数量</span></span><br><span class="line"></span><br><span class="line">        max_num = (right - left &gt; max_num) ? (right - left) : max_num;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> max_num;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div><!-- .entry-content -->
 
     <footer class="entry-meta">
-    <a href="/2024/09/25/%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0(%E5%9F%BA%E7%A1%80)/">
-    <time datetime="2024-09-25T04:00:00.000Z" class="entry-date">
-        2024-09-25
+    <a href="/2024/10/31/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3(%E6%B0%B4%E6%9E%9C%E6%88%90%E7%AF%AE)/">
+    <time datetime="2024-10-31T04:00:00.000Z" class="entry-date">
+        2024-10-31
     </time>
 </a>
     
     
   <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BF%AB%E6%85%A2%E6%8C%87%E9%92%88/" rel="tag">快慢指针</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0/" rel="tag">移除元素</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode904/" rel="tag">leetcode904</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/" rel="tag">滑动窗口</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
 
     </footer>
 </article>
@@ -144,10 +133,8 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2024/09/25/%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0(%E5%88%A0%E9%99%A4%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9)/" rel="prev"><span class="meta-nav">←</span> 移除元素leetcode26(删除有序数组中的重复项)</a></span>
     
-    
-        <span class="nav-next"><a href="/2024/09/25/%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0(%E6%AF%94%E8%BE%83%E5%90%AB%E9%80%80%E6%A0%BC%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2)/" rel="next">移除元素leetcode844(比较含退格元素的字符串) <span class="meta-nav">→</span></a></span>
+        <span class="nav-next"><a href="/2024/10/28/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/" rel="next">机器学习之逻辑回归基础 <span class="meta-nav">→</span></a></span>
     
 </nav><!-- .nav-single -->
 
