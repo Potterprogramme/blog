@@ -44,7 +44,7 @@
 <meta property="og:image" content="http://example.com/images/Pasted%20image%2020241028192104.png">
 <meta property="og:image" content="http://example.com/images/Pasted%20image%2020241028192602.png">
 <meta property="article:published_time" content="2024-10-28T12:35:00.000Z">
-<meta property="article:modified_time" content="2024-10-28T12:47:37.409Z">
+<meta property="article:modified_time" content="2024-10-31T13:50:09.718Z">
 <meta property="article:author" content="potter_program">
 <meta property="article:tag" content="算法">
 <meta property="article:tag" content="机器学习">
@@ -120,7 +120,10 @@
 <blockquote>
 <p>明明是分类为什么称作回归呢？<br>因为它的底层方法就是线性回归，逻辑回归是基于回归的伪回归算法。</p>
 </blockquote>
-<h2 id="实现基础的逻辑回归"><a href="#实现基础的逻辑回归" class="headerlink" title="实现基础的逻辑回归"></a>实现基础的逻辑回归</h2><h3 id="理解逻辑回归"><a href="#理解逻辑回归" class="headerlink" title="理解逻辑回归"></a>理解逻辑回归</h3><h4 id="逻辑函数的表达"><a href="#逻辑函数的表达" class="headerlink" title="逻辑函数的表达"></a>逻辑函数的表达</h4><p>回想线性方程<br>$$Z &#x3D; W^TX + b$$<br>对于直线，我们知道z的输出范围没有任何的限制，可以从负无穷到正无穷。但是，我们需要的是一个分类器，想要拿到两种结果，0或者1，所以我们需要输出范围为（0,1）的式子。<br>在线性方程的基础上达到规范输出范围这一目的，我们使用了Sigmoid函数$$σ(z) &#x3D; \frac{1}{1+e^{-z}}$$<br><img src="/images/Pasted image 20241028195414.png" style="zoom:200%;"/><br>图像很像s，就跟sigmoid沾上边了，所以拿到一个逻辑函数的名称。</p>
+<h2 id="实现基础的逻辑回归"><a href="#实现基础的逻辑回归" class="headerlink" title="实现基础的逻辑回归"></a>实现基础的逻辑回归</h2><h3 id="理解逻辑回归"><a href="#理解逻辑回归" class="headerlink" title="理解逻辑回归"></a>理解逻辑回归</h3><h4 id="逻辑函数的表达"><a href="#逻辑函数的表达" class="headerlink" title="逻辑函数的表达"></a>逻辑函数的表达</h4><p>回想线性方程<br>$$Z &#x3D; W^TX + b$$<br>对于直线，我们知道z的输出范围没有任何的限制，可以从负无穷到正无穷。但是，我们需要的是一个分类器，想要拿到两种结果，0或者1，所以我们需要输出范围为（0,1）的式子。<br>在线性方程的基础上达到规范输出范围这一目的，我们使用了Sigmoid函数$$σ(z) &#x3D; \frac{1}{1+e^{-z}}$$</p>
+<img src="/images/Pasted image 20241028195414.png" style="zoom:200%;"/>
+图像很像s，就跟sigmoid沾上边了，所以拿到一个逻辑函数的名称。
+
 <p>我们在z的基础上进行的操作来达到控制范围的效果，我们就将z代入，就像下面这样。<br><img src="/images/Pasted image 20241028182720.png" style="zoom:200%;"/><br><img src="/images/Pasted image 20241028190843.png" style="zoom:200%;"/><br>我们要明确最初的目标，是分类，只有两种结果，要么0要么1，那哪些判断为0哪些判断为1呢？<br>我们引入决策边界。边界内为一种情况，边界外为一种情况。<br>不难想到会有线性边界以及非线性边界<br>情况类似下图<br><img src="/images/Pasted image 20241028200239.png" style="zoom:200%;"/><br><img src="/images/Pasted image 20241028183305.png" style="zoom:200%;"/></p>
 <blockquote>
 <p>所以，逻辑回归的整体思路是，先用逻辑函数把线性回归的结果 (-∞,∞)映射到(0,1)，再通过决策边界建立与分类的概率联系</p>

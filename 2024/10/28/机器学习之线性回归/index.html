@@ -31,7 +31,7 @@
 <meta property="og:description" content="线性回归什么是线性回归什么是回归 回归问题是函数拟合问题，就是给定一些点的集合，用一个曲线或者方程去拟合，使得所有点都大致符合  什么是线性回归 拟合的是一条直线，那就是线性回归  实现基础的线性回归实现回归的本质拿到一个好方程，输入已知量(自变量)，就能通过这个方程预测未知量(我们想要的数据) 拟合的方程我们假设能够拟合的方程是:$$h_\theta(x) &#x3D; \theta_0 + \">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/images/Pasted%20image%2020241028030501.png">
-<meta property="og:image" content="http://example.com/images/Pasted%20image%2020241026162948.png">
+<meta property="og:image" content="http://example.com/images/Pasted%20image%2020241026163100.png">
 <meta property="og:image" content="http://example.com/images/Pasted%20image%2020241026163114.png">
 <meta property="og:image" content="http://example.com/images/Pasted%20image%2020241027162552.png">
 <meta property="og:image" content="http://example.com/images/Pasted%20image%2020241027150630.png">
@@ -40,7 +40,7 @@
 <meta property="og:image" content="http://example.com/images/Pasted%20image%2020241027151409.png">
 <meta property="og:image" content="http://example.com/images/Pasted%20image%2020241027151659.png">
 <meta property="article:published_time" content="2024-10-28T04:00:00.000Z">
-<meta property="article:modified_time" content="2024-10-28T11:07:37.601Z">
+<meta property="article:modified_time" content="2024-10-31T13:58:10.515Z">
 <meta property="article:author" content="potter_program">
 <meta property="article:tag" content="算法">
 <meta property="article:tag" content="机器学习">
@@ -133,7 +133,7 @@
 <blockquote>
 <p>我站在高山上，我想用最短的时间下山，但是每次只能走一步。那么我需要做的就是环顾一周，找到一个最陡峭的方向，然后移动到那个点上；到新位置之后，重复刚才的动作。每次都选择最陡峭的方向走，那么很快就能下山。</p>
 </blockquote>
-<p>就像这样：<br><img src="/images/Pasted image 20241026162948.png" style="zoom:300%;"/><br>条条道路通罗马，但是从图像来看，不同起点到的最低点不一定一样<br>那是不是需要从所有地方出发，拿到所有情况呢？</p>
+<p>就像这样：<br><img src="/images/Pasted image 20241026163100.png" style="zoom:300%;"/><br>条条道路通罗马，但是从图像来看，不同起点到的最低点不一定一样<br>那是不是需要从所有地方出发，拿到所有情况呢？</p>
 <p>答案是否定的<br>因为损失函数的图长这样：<br><img src="/images/Pasted image 20241026163114.png" style="zoom:200%;"/><br>不用担心，它就是一个碗而已。</p>
 <p>既然行得通，我们就放心考虑思路<br>最小梯度法的整体思路就是：<br>    1. 对θ进行赋值，这个值随机，通常复值一个全零的向量<br>    2. 不停迭代，每次迭代都改变θ，使得损失函数按照梯度下降的方向进行减少</p>
 <h5 id="具体落实"><a href="#具体落实" class="headerlink" title="具体落实"></a>具体落实</h5><p>确定了下山要一步一步走，具体怎么落实呢？<br>很简单：找一个方向，走一步</p>
@@ -164,19 +164,8 @@
 <li>均值归一化<img src="/images/Pasted image 20241027151409.png" style="zoom:200%;"/></li>
 <li>Z-score 标准化<img src="/images/Pasted image 20241027151659.png" style="zoom:200%;"/></li>
 </ul>
-<p><br><br><br><br><br>放一些练手的连接，怕自己忘记了<br><a href="https://github.com/kaieye/2022-Machine-Learning-Specialization/blob/main/Supervised%20Machine%20Learning%20Regression%20and%20Classification/week2/5.Week%202%20practice%20lab%20Linear%20regression/.ipynb_checkpoints/C1_W2_Linear_Regression%20-%20%E5%89%AF%E6%9C%AC-checkpoint.ipynb" target="_blank">使用一个变量实施线性回归，以预测餐厅特许经营的利润</a></p>
-<p><a href="https://github.com/kaieye/2022-Machine-Learning-Specialization/blob/main/Supervised%20Machine%20Learning%20Regression%20and%20Classification/week2/work/C1_W2_Lab05_Sklearn_GD_Soln.ipynb" target="_blank">利用 scikit-learn 使用 Gradient Descent 实现线性回归</a></p>
-<p><a href="https://github.com/kaieye/2022-Machine-Learning-Specialization/blob/main/Supervised%20Machine%20Learning%20Regression%20and%20Classification/week2/work/C1_W2_Lab06_Sklearn_Normal_Soln.ipynb" target="_blank">利用 scikit-learn 使用基于正态方程的紧密形式解实现线性回归</a><br><br></p>
-<br>
-写在最后，感谢这些文章和视频对我的指点：
-https://www.kaggle.com/code/tohuangjia/linear-regression
-https://cuijiahua.com/blog/2017/11/ml_11_regression_1.html
-https://blog.csdn.net/didiaopao/article/details/126483324
-https://github.com/kaieye/2022-Machine-Learning-Specialization/blob/main/Unsupervised%20learning%20recommenders%20reinforcement%20learning/week1/2%20Practice%20Lab1/.ipynb_checkpoints/C3_W1_KMeans_Assignment-checkpoint.ipynb
-https://njuferret.github.io/2017/08/24/Gradient-Descent/
-https://www.cnblogs.com/renly/archive/2013/01/04/2844880.html
-https://www.bilibili.com/video/BV1PN4y1V7d9/?p=3&vd_source=696b6322fafa5344c9a7c99a18c22374
-https://github.com/kaieye/2022-Machine-Learning-Specialization/blob/main/Supervised%20Machine%20Learning%20Regression%20and%20Classification/week1/6.Train%20the%20model%20with%20gradient%20descent/C1_W1_Lab05_Gradient_Descent_Soln.ipynb
+<p><br><br><br><br><br>放一些练手的连接，怕自己忘记了<br><a href="https://github.com/kaieye/2022-Machine-Learning-Specialization/blob/main/Supervised%20Machine%20Learning%20Regression%20and%20Classification/week2/5.Week%202%20practice%20lab%20Linear%20regression/.ipynb_checkpoints/C1_W2_Linear_Regression%20-%20%E5%89%AF%E6%9C%AC-checkpoint.ipynb" target="_blank">使用一个变量实施线性回归，以预测餐厅特许经营的利润</a><br><a href="https://github.com/kaieye/2022-Machine-Learning-Specialization/blob/main/Supervised%20Machine%20Learning%20Regression%20and%20Classification/week2/work/C1_W2_Lab05_Sklearn_GD_Soln.ipynb" target="_blank">利用 scikit-learn 使用 Gradient Descent 实现线性回归</a><br><a href="https://github.com/kaieye/2022-Machine-Learning-Specialization/blob/main/Supervised%20Machine%20Learning%20Regression%20and%20Classification/week2/work/C1_W2_Lab06_Sklearn_Normal_Soln.ipynb" target="_blank">利用 scikit-learn 使用基于正态方程的紧密形式解实现线性回归</a><br><br><br><br><br>写在最后，感谢这些文章和视频对我的指点：<br><a target="_blank" rel="noopener" href="https://www.kaggle.com/code/tohuangjia/linear-regression">https://www.kaggle.com/code/tohuangjia/linear-regression</a><br><a target="_blank" rel="noopener" href="https://cuijiahua.com/blog/2017/11/ml_11_regression_1.html">https://cuijiahua.com/blog/2017/11/ml_11_regression_1.html</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/didiaopao/article/details/126483324">https://blog.csdn.net/didiaopao/article/details/126483324</a><br><a target="_blank" rel="noopener" href="https://github.com/kaieye/2022-Machine-Learning-Specialization/blob/main/Unsupervised%20learning%20recommenders%20reinforcement%20learning/week1/2%20Practice%20Lab1/.ipynb_checkpoints/C3_W1_KMeans_Assignment-checkpoint.ipynb">https://github.com/kaieye/2022-Machine-Learning-Specialization/blob/main/Unsupervised%20learning%20recommenders%20reinforcement%20learning/week1/2%20Practice%20Lab1/.ipynb_checkpoints/C3_W1_KMeans_Assignment-checkpoint.ipynb</a><br><a target="_blank" rel="noopener" href="https://njuferret.github.io/2017/08/24/Gradient-Descent/">https://njuferret.github.io/2017/08/24/Gradient-Descent/</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/renly/archive/2013/01/04/2844880.html">https://www.cnblogs.com/renly/archive/2013/01/04/2844880.html</a><br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1PN4y1V7d9/?p=3&vd_source=696b6322fafa5344c9a7c99a18c22374">https://www.bilibili.com/video/BV1PN4y1V7d9/?p=3&amp;vd_source=696b6322fafa5344c9a7c99a18c22374</a><br><a target="_blank" rel="noopener" href="https://github.com/kaieye/2022-Machine-Learning-Specialization/blob/main/Supervised%20Machine%20Learning%20Regression%20and%20Classification/week1/6.Train%20the%20model%20with%20gradient%20descent/C1_W1_Lab05_Gradient_Descent_Soln.ipynb">https://github.com/kaieye/2022-Machine-Learning-Specialization/blob/main/Supervised%20Machine%20Learning%20Regression%20and%20Classification/week1/6.Train%20the%20model%20with%20gradient%20descent/C1_W1_Lab05_Gradient_Descent_Soln.ipynb</a></p>
+
       
     </div><!-- .entry-content -->
 
