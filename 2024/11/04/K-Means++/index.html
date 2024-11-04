@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS_HTML" async></script>
+
+  
+  <meta name="description" content="K-Means++什么是k-means++K-means++ 是一种改进的质心初始化方法，用来解决 K-means 聚类算法对初始质心敏感的问题。通过 K-means++ 的初始化方式，可以使 K-means 更加稳定、快速地收敛，同时提高找到全局最优解的可能性。
+k-means++的主要思想在选择" />
+  
+
+  
+  
+  
+  
+  
+  
+  <title>K-Means++ | 巫师实习员</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="K-Means++什么是k-means++K-means++ 是一种改进的质心初始化方法，用来解决 K-means 聚类算法对初始质心敏感的问题。通过 K-means++ 的初始化方式，可以使 K-means 更加稳定、快速地收敛，同时提高找到全局最优解的可能性。 k-means++的主要思想在选择灭一个新的初始质心时，优先选择离已有质心较远的点，这样可以确保初始质心尽量分散，覆盖数据的主要区域，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="K-Means++">
+<meta property="og:url" content="http://example.com/2024/11/04/K-Means++/index.html">
+<meta property="og:site_name" content="巫师实习员">
+<meta property="og:description" content="K-Means++什么是k-means++K-means++ 是一种改进的质心初始化方法，用来解决 K-means 聚类算法对初始质心敏感的问题。通过 K-means++ 的初始化方式，可以使 K-means 更加稳定、快速地收敛，同时提高找到全局最优解的可能性。 k-means++的主要思想在选择灭一个新的初始质心时，优先选择离已有质心较远的点，这样可以确保初始质心尽量分散，覆盖数据的主要区域，">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-11-03T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-11-04T12:46:35.268Z">
+<meta property="article:author" content="potter_program">
+<meta property="article:tag" content="机器学习">
+<meta property="article:tag" content="聚类">
+<meta property="article:tag" content="K-Means">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="favicon.webp">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src='//push.zhanzhang.baidu.com/push.js'></script>
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="巫师实习员" rel="home">巫师实习员</a>
+      </h1>
+      
+        <h2 class="site-description hitokoto"></h2>
+        <script type="text/javascript" src="https://v1.hitokoto.cn/?encode=js"></script>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-K-Means++" class="post-K-Means++ post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      K-Means++
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://example.com/2024/11/04/K-Means++/" data-id="cm330eyvo0000j4wwhvt6g18g" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h1 id="K-Means"><a href="#K-Means" class="headerlink" title="K-Means++"></a>K-Means++</h1><h2 id="什么是k-means"><a href="#什么是k-means" class="headerlink" title="什么是k-means++"></a>什么是k-means++</h2><p><strong>K-means++</strong> 是一种改进的质心初始化方法，用来解决 K-means 聚类算法对初始质心敏感的问题。通过 K-means++ 的初始化方式，可以使 K-means 更加稳定、快速地收敛，同时提高找到全局最优解的可能性。</p>
+<h2 id="k-means-的主要思想"><a href="#k-means-的主要思想" class="headerlink" title="k-means++的主要思想"></a>k-means++的主要思想</h2><p>在选择灭一个新的初始质心时，<mark>优先选择离已有质心较远的点</mark>，这样可以确保初始质心尽量分散，覆盖数据的主要区域，从而减少迭代次数，降低陷入局部最优解的可能性。</p>
+<h2 id="为什么k-means-有效"><a href="#为什么k-means-有效" class="headerlink" title="为什么k-means++有效"></a>为什么k-means++有效</h2><p>首先可以看一组对比图：<br>![[output.png]]</p>
+<ol>
+<li>减少了局部最优的风险：K-means 的随机初始化容易导致质心集中在数据的某个局部区域，导致算法陷入局部最优。K-means++ 通过让质心分散，从而增加找到全局最优解的可能性。</li>
+<li>加速收敛：初始质心更合理时，数据点会更接近其正确的簇，减少了算法调整质心位置的工作量，从而加快收敛。</li>
+<li>平衡簇的大小：通过选择离现有质心较远的数据点作为新的质心，K-means++ 在初始化时就确保簇分布较均匀，避免出现某些簇过大或过小的情况。</li>
+</ol>
+<h2 id="k-means-的步骤"><a href="#k-means-的步骤" class="headerlink" title="k-means++的步骤"></a>k-means++的步骤</h2><ol>
+<li>随机选择第一个质心：从数据集中选择一个数据点作为第一个质心。</li>
+<li>计算每个数据点到最近质心的距离记为D(x)。同k-means，这篇文章当中有讲到这一点[[机器学习之聚类算法]]</li>
+<li>概率选择下一个质心<ol>
+<li>选择下一个质心时，不是完全随机选择，而是根据距离的平方来确定选择的概率。</li>
+<li>将每个数据点x以D(x)的平方作为概率选择为下一个质心，具体来说，距离越远的点有更高的概率被选为新的质心。</li>
+</ol>
+</li>
+<li>重复2和3，直到选择了K个质心。</li>
+<li>开始标准的K-means迭代：使用初始化得到的K个质心，按照标准的K-means算法进行迭代，直到算法收敛。</li>
+</ol>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>这里实现最关键的<mark>确定质心</mark></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">initialize_centroids_kmeans_pp</span>(<span class="params">X, K</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    使用 K-means++ 方法初始化质心.</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    参数:</span></span><br><span class="line"><span class="string">    - X: 数据集 (numpy array)，形状为 (n_samples, n_features)</span></span><br><span class="line"><span class="string">    - K: 需要生成的簇数</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    返回值:</span></span><br><span class="line"><span class="string">    - centroids: 初始化的 K 个质心，形状为 (K, n_features)</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># 获取样本数和特征数</span></span><br><span class="line">    n_samples, n_features = X.shape</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 初始化一个空的质心数组</span></span><br><span class="line">    centroids = np.zeros((K, n_features))</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 随机选择第一个质心</span></span><br><span class="line">    centroids[<span class="number">0</span>] = X[np.random.randint(<span class="number">0</span>, n_samples)]</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 选择接下来的质心</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, K):</span><br><span class="line">        <span class="comment"># 计算每个数据点到最近已选质心的距离平方</span></span><br><span class="line">        distances = np.<span class="built_in">min</span>([np.linalg.norm(X - centroid, axis=<span class="number">1</span>)**<span class="number">2</span> <span class="keyword">for</span> centroid <span class="keyword">in</span> centroids[:i]], axis=<span class="number">0</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 依据距离平方，按比例选择下一个质心</span></span><br><span class="line">        probabilities = distances / distances.<span class="built_in">sum</span>()</span><br><span class="line">        cumulative_probabilities = np.cumsum(probabilities)</span><br><span class="line">        r = np.random.rand()</span><br><span class="line">        next_centroid_idx = np.where(cumulative_probabilities &gt;= r)[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 将选中的数据点作为下一个质心</span></span><br><span class="line">        centroids[i] = X[next_centroid_idx]</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> centroids</span><br></pre></td></tr></table></figure>
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2024/11/04/K-Means++/">
+    <time datetime="2024-11-03T16:00:00.000Z" class="entry-date">
+        2024-11-04
+    </time>
+</a>
+    
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/K-Means/" rel="tag">K-Means</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%81%9A%E7%B1%BB/" rel="tag">聚类</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+    
+        <span class="nav-next"><a href="/2024/11/03/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95/" rel="next">机器学习之聚类算法基础 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <!-- <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value="" name="s" id="s" />
+        <input type="submit" id="searchsubmit" value="搜索" />
+    </div>
+</form></aside> -->
+<aside id="search" class="widget widget_search">
+    <form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="/search.html">
+        <div>
+            <input type="text" value="" name="q" id="s" required placeholder="搜索文章" />
+            <input type="submit" id="searchsubmit" value="搜索" />
+        </div>
+    </form>
+</aside>
+
+
+  
+    
+  
+    
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2024/11/04/K-Means++/">K-Means++</a>
+          </li>
+        
+          <li>
+            <a href="/2024/11/03/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95/">机器学习之聚类算法基础</a>
+          </li>
+        
+          <li>
+            <a href="/2024/11/01/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3(%E6%9C%80%E5%B0%8F%E8%A6%86%E7%9B%96%E5%AD%90%E4%B8%B2)/">滑动窗口leetcode76(最小覆盖子串)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/10/31/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3(%E6%B0%B4%E6%9E%9C%E6%88%90%E7%AF%AE)/">滑动窗口leetcode904(水果成篮)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/10/28/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/">机器学习之逻辑回归基础</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/K-Means/" rel="tag">K-Means</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/" rel="tag">leetcode</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">二分查找</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/" rel="tag">双指针</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BF%AB%E6%85%A2%E6%8C%87%E9%92%88/" rel="tag">快慢指针</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag">排序</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/" rel="tag">最小二乘法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D/" rel="tag">梯度下降</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/" rel="tag">滑动窗口</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A2%8E%E7%AC%94/" rel="tag">碎笔</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0/" rel="tag">移除元素</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">15</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/" rel="tag">线性回归</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%81%9A%E7%B1%BB/" rel="tag">聚类</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/" rel="tag">逻辑回归</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/K-Means/" style="font-size: 11.43px;">K-Means</a> <a href="/tags/leetcode/" style="font-size: 18.57px;">leetcode</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 15.71px;">二分查找</a> <a href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/" style="font-size: 11.43px;">双指针</a> <a href="/tags/%E5%BF%AB%E6%85%A2%E6%8C%87%E9%92%88/" style="font-size: 12.86px;">快慢指针</a> <a href="/tags/%E6%8E%92%E5%BA%8F/" style="font-size: 10px;">排序</a> <a href="/tags/%E6%95%B0%E7%BB%84/" style="font-size: 17.14px;">数组</a> <a href="/tags/%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95/" style="font-size: 10px;">最小二乘法</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 14.29px;">机器学习</a> <a href="/tags/%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D/" style="font-size: 10px;">梯度下降</a> <a href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/" style="font-size: 11.43px;">滑动窗口</a> <a href="/tags/%E7%A2%8E%E7%AC%94/" style="font-size: 10px;">碎笔</a> <a href="/tags/%E7%A7%BB%E9%99%A4%E5%85%83%E7%B4%A0/" style="font-size: 15.71px;">移除元素</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 20px;">算法</a> <a href="/tags/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/" style="font-size: 10px;">线性回归</a> <a href="/tags/%E8%81%9A%E7%B1%BB/" style="font-size: 11.43px;">聚类</a> <a href="/tags/%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/" style="font-size: 10px;">逻辑回归</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2024 potter_program
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/js/share.js'];</script>
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>
