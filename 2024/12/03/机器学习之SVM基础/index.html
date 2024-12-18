@@ -57,7 +57,7 @@
 <meta property="og:image" content="http://example.com/images/Pasted%20image%2020241218153525.png">
 <meta property="og:image" content="http://example.com/images/00822FC2.png">
 <meta property="article:published_time" content="2024-12-02T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-12-18T12:02:18.326Z">
+<meta property="article:modified_time" content="2024-12-18T12:10:19.241Z">
 <meta property="article:author" content="potter_program">
 <meta property="article:tag" content="算法">
 <meta property="article:tag" content="机器学习">
@@ -141,7 +141,7 @@
 </ol>
 <h2 id="实现SVM分类器的问题转换"><a href="#实现SVM分类器的问题转换" class="headerlink" title="实现SVM分类器的问题转换"></a>实现SVM分类器的问题转换</h2><p>正负超平面之间的距离就是两类数据之间的距离，也就是两倍的间距。这个距离越大就说明两类数据之间差异越大，也就说明分类的效果好。要分类，那么我们就要<mark>最大化间距</mark>。</p>
 <h3 id="公式推导"><a href="#公式推导" class="headerlink" title="公式推导"></a>公式推导</h3><p>谈到距离，不防用高中数学中的点到直线距离过度一下。$$d &#x3D; \frac{|A x_0 + B y_0 + C|}{\sqrt{A^2 + B^2}}$$如此，点到超平面的距离也就不难理解了。<br>$$<br>d &#x3D; \frac{|w^T x + b|}{|w|},其中||w||&#x3D;\sqrt{w_1^2+w_2^2+…+w_n^2}<br>$$<br>相较于点到直线，多的仅仅是维度罢了。</p>
-<p>公式当中的绝对值的作用显而易见，毕竟是距离，断然不该有负的概念。为了替换掉这个绝对值，我们引入y，当$w^T x_0 + b$本身为正时，我们乘上y（y&#x3D;1）；当$w^T x_0 + b$本身为负时，我们乘上y（y&#x3D;-1）。y要么为1要么为-1，就只有两种状态，正符合我们的二分类，我们可以把y视作分类的两种结果。</p>
+<p>公式当中的绝对值的作用显而易见，毕竟是距离，断然不该有负的概念。为了替换掉这个绝对值，我们引入y，当wx + b本身为正时，我们乘上y（y&#x3D;1）；当wx + b$本身为负时，我们乘上y（y&#x3D;-1）。y要么为1要么为-1，就只有两种状态，正符合我们的二分类，我们可以把y视作分类的两种结果。</p>
 <p>距离公式也就变成了$$d &#x3D; \frac{(w^T x^i + b)y^i}{|w|},\quad y^i &#x3D; \pm 1$$<br>那么：$$间隔&#x3D;min(数据到决策超平面的距离)&#x3D;min[ \frac{(w^T x^i + b)y^i}{|w|}],\quad y &#x3D; \pm 1$$那么我们的目标最大化间隔就等价于：$$max{min[\frac{(w^T x^i + b)y^i}{|w|}]},\quad y^i &#x3D; \pm 1$$这个式子就是我们的原始目标函数。</p>
 <p>整体的函数就是一个分式，分母为||w||，分子为(wx+b)y（正数），很明显，在保证整体式子大小不变的情况下，我们调整分母的大小能够达到调整分子大小的效果。$$我们将||w||进行缩放，使得分子(w^T x^i + b)y^i&gt;&#x3D;1。$$<br>$$那么min[(w^T x^i + b)y^i]&#x3D;1$$<br>在原始的目标函数的基础上，将||w||提到前面来，我们得到：$$max{\frac{1}{||w||}min[(w^Tx^i+b)y^i]}$$<br>再将min替换掉，就得到：$$max(\frac{1}{||w||})$$别忘了我们能够将min替换掉是有一个前提的：$$(w^T x^i + b)y^i&gt;&#x3D;1$$所以完整来说，我们的目标函数变成了：$$max(\frac{1}{||w||})\quad s.t.(w^T x^i + b)y^i&gt;&#x3D;1$$<br>等价于：$$min(||w||)\quad s.t.(w^T x^i + b)y^i&gt;&#x3D;1$$<br>也等价于：$$min(\frac{1}{2}||w||^2)\quad s.t.(w^T x^i + b)y^i&gt;&#x3D;1$$<br>难免会好奇为什么将||w||加一个二分之一并且平方，这是一个好问题。<br>我们先回过头来想想，||w||是什么?||w||是二范式。$$||w||&#x3D;\sqrt{w_1^2+w_2^2+…+w_n^2}$$<br>不难想到，对二范式平方能避免根号的麻烦。至于前面的二分之一，就是为了求导和平方而得的2进行综合，系数又变成了1，省去许多计算麻烦。</p>
 <p>到这里，我们的目标函数就变成了：$$min(\frac{1}{2}||w||^2),\quad \text{s.t.  } (w^T x^i + b)y^i&gt;&#x3D;1$$这样一系列推导下来，<mark><strong>我们要解决的问题就是一个带有不等式约束的最小化问题。</strong></mark></p>
