@@ -53,10 +53,11 @@
 <meta property="og:image" content="http://example.com/images/Pasted%20image%2020241217223425.png">
 <meta property="og:image" content="http://example.com/images/Pasted%20image%2020241217223904.png">
 <meta property="og:image" content="http://example.com/images/Pasted%20image%2020241203110706.png">
+<meta property="og:image" content="http://example.com/images/Pasted%20image%2020241218151722.png">
 <meta property="og:image" content="http://example.com/images/Pasted%20image%2020241218153525.png">
 <meta property="og:image" content="http://example.com/images/00822FC2.png">
 <meta property="article:published_time" content="2024-12-02T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-12-18T11:57:07.666Z">
+<meta property="article:modified_time" content="2024-12-18T12:02:18.326Z">
 <meta property="article:author" content="potter_program">
 <meta property="article:tag" content="算法">
 <meta property="article:tag" content="机器学习">
@@ -214,7 +215,7 @@
 <h5 id="两种核函数的比较"><a href="#两种核函数的比较" class="headerlink" title="两种核函数的比较"></a>两种核函数的比较</h5><p>多数情况下，高斯核函数的效果要优于多项式核函数。<br><img src="/images/Pasted image 20241203110706.png" style="zoom:200%;"/></p>
 <h5 id="核函数和核技巧"><a href="#核函数和核技巧" class="headerlink" title="核函数和核技巧"></a>核函数和核技巧</h5><p>通过 <strong>核函数</strong> 我们能够计算高维点积，<strong>而不需要显式地知道映射到高维空间的特征函数</strong>。这个过程被称为 <strong>核技巧（Kernel Trick）</strong></p>
 <h2 id="SM0简述（序列最小最优化算法）"><a href="#SM0简述（序列最小最优化算法）" class="headerlink" title="SM0简述（序列最小最优化算法）"></a>SM0简述（序列最小最优化算法）</h2><p>核函数那里，我们从$$min(\frac{1}{2}||w||^2+C\sum_{i&#x3D;1}^{n} \xi_i),\quad \text{s.t.  } (w^T x^i + b)y^i&gt;&#x3D;1-\xi_i\quad \text{ }\xi_i\geq0$$推到了$$\min_{\alpha_i}(\frac{1}{2} \sum_{i&#x3D;1}^{n} \sum_{j&#x3D;1}^{n}α_iα_jy_iy_jx_{i}^Tx_j-\sum_{i&#x3D;1}^{n}α_i)\quad \text{s.t.  } \sum_{i&#x3D;1}^{n}α_iy_i&#x3D;0，0\leq α_i \leq C$$我们的变量变成了α，一个α对应了一个(x,y)。那我们变量的总数等于训练样本的总数。这个优化涉及到大量的变量，特别是在处理大规模数据时，直接求解会非常耗时。</p>
-<p>我们提一提<mark>坐标上升法</mark><br>坐标上升法每次只优化一个变量(坐标)，而不是同时更新所有变量（梯度下降）。在每一步中，固定其他所有变量，只更新一个变量，直到收敛或达到预定的停止条件。![[Pasted image 20241218151722.png]]<br>通过上图来理解，单独优化α1，α2……αn，一步一步地走到函数的极值。</p>
+<p>我们提一提<mark>坐标上升法</mark><br>坐标上升法每次只优化一个变量(坐标)，而不是同时更新所有变量（梯度下降）。在每一步中，固定其他所有变量，只更新一个变量，直到收敛或达到预定的停止条件。<img src="/images/Pasted image 20241218151722.png" style="zoom:200%;"/><br>通过上图来理解，单独优化α1，α2……αn，一步一步地走到函数的极值。</p>
 <p>对于我们的SVM能够使用这个方法吗？<br>别忘了我们有一个限制条件$$\sum_{i&#x3D;1}^{n}α_iy_i&#x3D;0$$我们要是选择一个α进行优化而将其他α当做常数的话，意味着有一个α不断改变其他α不变。这样是肯定做不到和为0的，也就不满足我们的限制条件。</p>
 <p>SMO怎么做的呢？SMO选择两个α进行优化，来保持平衡，使得和为0。<br>而两个参数的变化也能够通过下面的推导变成一个参数的变化。<br><img src="/images/Pasted image 20241218153525.png" style="zoom:200%;"/></p>
 <p>剩下的就是一步又一步的循环了。</p>
